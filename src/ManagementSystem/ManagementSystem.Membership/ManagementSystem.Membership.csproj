@@ -1,0 +1,24 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net5.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Folder Include="Repositories\" />
+    <Folder Include="UnifOfWorks\" />
+    <Folder Include="BusinessObjects\" />
+  </ItemGroup>
+
+  <ItemGroup>
+	  <PackageReference Include="Autofac.Extensions.DependencyInjection" Version="7.2.0" />
+	  <PackageReference Include="DevSkill.Core" Version="5.0.0" />
+	  <PackageReference Include="DevSkill.Data" Version="5.0.4" />
+	  <PackageReference Include="DevSkill.Http" Version="5.0.0" />
+	  <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="5.0.12" />
+	  <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="5.0.12" />
+	  <PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="5.0.12" />
+	  <PackageReference Include="Microsoft.Extensions.Identity.Stores" Version="5.0.12" />
+  </ItemGroup>
+
+</Project>

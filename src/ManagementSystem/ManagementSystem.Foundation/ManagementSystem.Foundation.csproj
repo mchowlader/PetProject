@@ -1,0 +1,19 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net5.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Folder Include="BusinessObjects\" />
+    <Folder Include="Contexts\" />
+    <Folder Include="Entities\" />
+    <Folder Include="Repositories\" />
+    <Folder Include="UnifOfWorks\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="DevSkill.Http" Version="5.0.0" />
+  </ItemGroup>
+
+</Project>

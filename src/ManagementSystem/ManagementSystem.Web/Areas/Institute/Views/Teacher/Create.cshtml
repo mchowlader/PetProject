@@ -1,0 +1,64 @@
+﻿@model CreateTeacherModel
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<div class="card">
+    <div class="col-md-12">
+        <form asp-area="Institute" asp-action="Create" asp-controller="Teacher" enctype="multipart/form-data" method="post" asp-antiforgery="true">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="container">
+                <div class="row">
+                    <div class="col-6">
+                        <div class="form-group">
+                            <label asp-for="Name" class="control-label"></label>
+                            <input asp-for="Name" class="form-control" />
+                            <span asp-validation-for="Name" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="Address" class="control-label  "></label>
+                            <input asp-for="Address" class="mw-100 p-5 form-control" />
+                            <span asp-validation-for="Address" class="text-danger"></span>
+                        </div>
+                    </div>
+
+                    <div class="col-6">
+                        <div class="form-group">
+                            <label asp-for="MobileNo" class="control-label">Mobile Number</label>
+                            <input asp-for="MobileNo" class="form-control"/>
+                            <span asp-validation-for="MobileNo" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                             <label asp-for="Gender" for="inputState">Gender</label>
+                              <select asp-for="Gender" id="inputState" class="form-control">
+                                <option>Male</option>
+                                <option>Female</option>
+                                <option>Other</option>
+                              </select>
+                        </div>
+                        <div class="form-group">
+                             <label asp-for="FromFile" for="formFile" class="form-label">Select a photo </label>
+                             <input asp-for="FromFile" class="form-control" type="file" id="formFile">
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Data">Back to List</a>
+</div>
+
+@section Scripts {
+    @{
+    await Html.RenderPartialAsync("_ValidationScriptsPartial");
+}
+}

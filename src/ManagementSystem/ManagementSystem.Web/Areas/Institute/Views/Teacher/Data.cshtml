@@ -1,0 +1,99 @@
+﻿@model DataTeacherModel
+
+@{
+    ViewData["Title"] = "Data";
+}
+@section Styles
+{
+    <link rel="stylesheet" href="/AdminLTE/plugins/datatables-bs4/css/dataTables.bootstrap4.css">
+}
+
+<!-- Main content -->
+<section class="content">
+    <div class="row">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-body">
+                    <table id="Teacher" class="table table-bordered table-hover">
+                        <thead>
+                            <tr>
+                                <th>Photo</th>
+                                <th>Name</th>
+                                <th>Address</th>
+                                <th>Gender</th>
+                                <th>Mobile</th>
+                                <th style="width:200px">Action</th>
+                            </tr>
+                        </thead>
+                        <tfoot>
+                            <tr>
+                                <th>Photo</th>
+                                <th>Name</th>
+                                <th>Address</th>
+                                <th>Gender</th>
+                                <th>Mobile</th>
+                                <th>Action</th>
+                            </tr>
+                        </tfoot>
+                        <partial name="Partial/_DeletePopupPartial"/>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+@section Scripts
+{
+    
+    <script src="/AdminLTE/plugins/datatables/jquery.dataTables.js"></script>
+    <script src="/AdminLTE/plugins/datatables-bs4/js/dataTables.bootstrap4.js"></script>
+    <script>
+        $(function ()
+        {
+            $('#Teacher').DataTable({
+                "processing": true,
+                "serverSide": true,
+                "ajax": "/Institute/Teacher/GetData",
+                "columnDefs": [
+                    {
+                        "orderable": false,
+                        "targets": 0,
+                        "render": function (data, type, row) {
+                            return `<img src="/${data}" asp-append-version="true" height = 50px />`;
+                        }
+                    },
+                    {
+                        "orderable": false,
+                        "targets": 5,
+                        "render": function (data, type, row) {
+                            return `<button type="submit" class="btn btn-info btn-sm" onclick="window.location.href='/Institute/Teacher/Edit/${data}'" value='${data}'>
+                                        <i class="fas fa-pencil-alt">
+                                        </i>
+                                        Edit
+                                    </button>
+                                    <button type="submit" class="btn btn-danger btn-sm show-bs-modal" href="#" data-id='${data}' value='${data}'>
+                                        <i class="fas fa-trash">
+                                        </i>
+                                        Delete
+                                    </button>`;
+                        }
+                    }
+                ]
+                
+            });
+            $('#Teacher').on('click', '.show-bs-modal', function (event) {
+                var id = $(this).data("id");
+                var modal = $("#modal-default");
+                modal.find('.modal-body p').text('Are you sure you want to delete this record?')
+                $("#deleteId").val(id);
+                $("#deleteForm").attr("action", "/Institute/Teacher/delete")
+                modal.modal('show');
+            });
+            $("#deleteButton").click(function () {
+                $("#deleteForm").submit();
+            });
+        });
+    </script>
+}
