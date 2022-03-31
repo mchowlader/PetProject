@@ -13,15 +13,16 @@ namespace ManagementSystem.Academy.UnifOfWorks
     public class AcademyUnitOfWork : UnitOfWork, IAcademyUnitOfWork
     {
         public ITeacherRepository TeacherRepository { get; private set; }
-
         public IStudentRepository StudentRepository { get; private set; }
+        public IInstituteRepository InstituteRepository { get; private set; }
 
         public AcademyUnitOfWork(IAcademyDbContext context, ITeacherRepository teacherRepository, 
-            IStudentRepository studentRepository) 
+            IStudentRepository studentRepository, IInstituteRepository instituteRepository) 
             : base((AcademyDbContext)context)
         {
             TeacherRepository = teacherRepository;
             StudentRepository = studentRepository;
+            InstituteRepository = instituteRepository;
         }
 
     }

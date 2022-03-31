@@ -40,6 +40,13 @@ namespace ManagementSystem.Academy
                 .InstancePerLifetimeScope();
             builder.RegisterType<StudentService>().As<IStudentService>()
                 .InstancePerLifetimeScope();
+            
+            builder.RegisterType<InstituteService>().As<IInstituteService>()
+                .InstancePerLifetimeScope(); 
+            builder.RegisterType<InstituteRepository>().As<IInstituteRepository>()
+                .InstancePerLifetimeScope();
+
+
 
             base.Load(builder);
         }

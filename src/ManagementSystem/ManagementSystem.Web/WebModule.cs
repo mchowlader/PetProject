@@ -1,4 +1,5 @@
 ﻿using Autofac;
+using ManagementSystem.Web.Areas.Institute.Models.InstituteModel;
 using ManagementSystem.Web.Areas.Institute.Models.StudentModel;
 using ManagementSystem.Web.Areas.Institute.Models.TeacherModel;
 using ManagementSystem.Web.Models;
@@ -11,6 +12,7 @@ namespace ManagementSystem.Web
         {
             builder.RegisterType<RegisterModel>().AsSelf();
             builder.RegisterType<LoginModel>().AsSelf();
+            builder.RegisterType<ConfirmEmailModel>().AsSelf();
 
             //Teacher
             builder.RegisterType<CreateTeacherModel>().AsSelf();
@@ -18,9 +20,13 @@ namespace ManagementSystem.Web
             builder.RegisterType<EditTeacherModel>().AsSelf();
 
             //Student
+            builder.RegisterType<StudentInvitationModel>().AsSelf();
+            builder.RegisterType<CreateStudentModel>().AsSelf();
             builder.RegisterType<EditStudentModel>().AsSelf();
-            builder.RegisterType<EditStudentModel>().AsSelf();
-            builder.RegisterType<EditStudentModel>().AsSelf();
+            builder.RegisterType<DataStudentModel>().AsSelf();
+
+            //Instute
+            builder.RegisterType<CreateInstituteModel>().AsSelf();
 
             base.Load(builder);
         }

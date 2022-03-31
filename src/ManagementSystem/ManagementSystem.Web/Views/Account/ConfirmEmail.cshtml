@@ -1,0 +1,28 @@
+﻿@model ConfirmEmailModel
+@{
+    Layout = "_AccountLayout";
+    ViewData["Title"] = "Confirm Email";
+}
+
+<div class="row h-100">
+    <div class="col-lg-5 col-12">
+        <div id="auth-left">
+            @{
+                if(Model.IsSuccess == true)
+                {
+                     <p class="auth-subtitle mb-5">
+                        @Model.StatusMessage
+                        <a asp-area="Institute" asp-controller="Teacher" asp-action="Index">Go to Dashboard</a>
+                    </p>
+                }
+                else
+                {
+                    <p class="auth-subtitle mb-5"> @Model.StatusMessage</p>
+                }
+            }
+
+        </div>
+
+    </div>
+
+</div>

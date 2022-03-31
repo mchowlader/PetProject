@@ -1,6 +1,7 @@
 ﻿using Autofac;
 using ManagementSystem.Academy.Services;
 using ManagementSystem.Foundation.Utilities;
+using System;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -51,7 +52,7 @@ namespace ManagementSystem.Web.Areas.Institute.Models.TeacherModel
             };
         }
 
-        public async Task DeleteTeacherAsync(int id)
+        public async Task DeleteTeacherAsync(Guid id)
         {
             await _teacherService.DeleteTeacherAsync(id);
         }

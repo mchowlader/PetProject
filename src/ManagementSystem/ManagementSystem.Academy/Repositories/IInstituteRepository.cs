@@ -5,7 +5,7 @@ using System;
 
 namespace ManagementSystem.Academy.Repositories
 {
-    public interface ITeacherRepository : IRepository<Teacher, Guid, AcademyDbContext>
+    public interface IInstituteRepository : IRepository<Institutes, Guid, AcademyDbContext>
     {
     }
 }

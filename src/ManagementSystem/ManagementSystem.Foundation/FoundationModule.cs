@@ -35,6 +35,13 @@ namespace ManagementSystem.Foundation
             builder.RegisterType<ImageResizer>().As<IImageResizer>()
                 .InstancePerLifetimeScope();
 
+            builder.RegisterType<InvitationCodeGeneratorService>().As<IInvitationCodeGeneratorService>()
+                .InstancePerLifetimeScope();
+            builder.RegisterType<MailSenderService>().As<IMailSenderService>()
+                .InstancePerLifetimeScope();
+            builder.RegisterType<UrlService>().As<IUrlService>()
+                .InstancePerLifetimeScope();
+
             base.Load(builder);
         }
     }

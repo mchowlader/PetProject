@@ -1,5 +1,7 @@
 using Autofac;
 using Autofac.Extensions.DependencyInjection;
+using DevSkill.Http.Emails;
+using DevSkill.Http.Emails.BusinessObjects;
 using ManagementSystem.Academy;
 using ManagementSystem.Academy.Contexts;
 using ManagementSystem.Foundation;
@@ -56,6 +58,9 @@ namespace ManagementSystem.Web
                 connectionInfo.migrationAssemblyName));
             builder.RegisterModule(new FoundationModule(connectionInfo.connectionString,
                connectionInfo.migrationAssemblyName));
+            builder.RegisterModule(new EmailMessagingModule(connectionInfo.connectionString,
+                connectionInfo.migrationAssemblyName));
+
             builder.RegisterModule(new WebModule());
         }
 
@@ -129,6 +134,7 @@ namespace ManagementSystem.Web
 
             services.Configure<PathSettings>(Configuration.GetSection("Paths"));
             services.Configure<DefaultImageSettings>(Configuration.GetSection("DefaultImageSettings"));
+            services.Configure<SmtpConfiguration>(Configuration.GetSection("Smtp"));
 
             services.AddControllersWithViews();
             services.AddHttpContextAccessor();

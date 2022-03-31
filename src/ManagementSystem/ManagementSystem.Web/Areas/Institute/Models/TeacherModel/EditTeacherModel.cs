@@ -11,7 +11,7 @@ namespace ManagementSystem.Web.Areas.Institute.Models.TeacherModel
 {
     public class EditTeacherModel
     {
-        public int Id { get; set; }
+        public Guid Id { get; set; }
         public string Name { get; set; }
         public string Address { get; set; }
         public int MobileNo { get; set; }
@@ -28,8 +28,8 @@ namespace ManagementSystem.Web.Areas.Institute.Models.TeacherModel
         {
 
         }
-        public EditTeacherModel(ITeacherService teacherService, IPathService pathService, ISystemImageResizer systemImageResizer,
-           IFileStoreUtility fileStoreUtility )
+        public EditTeacherModel(ITeacherService teacherService, IPathService pathService, 
+            ISystemImageResizer systemImageResizer, IFileStoreUtility fileStoreUtility )
         {
             _pathService = pathService;
             _teacherService = teacherService;
@@ -45,7 +45,7 @@ namespace ManagementSystem.Web.Areas.Institute.Models.TeacherModel
             _systemImageResizer = _scope.Resolve<ISystemImageResizer>();
         }
 
-        public async Task LoadTeacherDataAsync(int id)
+        public async Task LoadTeacherDataAsync(Guid id)
         {
             var data = await _teacherService.LoadTeacherDataAsync(id);
 

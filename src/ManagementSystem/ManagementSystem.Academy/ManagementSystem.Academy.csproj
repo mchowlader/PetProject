@@ -10,6 +10,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\ManagementSystem.Foundation\ManagementSystem.Foundation.csproj" />
+    <ProjectReference Include="..\ManagementSystem.Membership\ManagementSystem.Membership.csproj" />
   </ItemGroup>
 
 </Project>

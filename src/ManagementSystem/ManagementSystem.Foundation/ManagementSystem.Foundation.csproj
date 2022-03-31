@@ -16,4 +16,8 @@
     <PackageReference Include="DevSkill.Http" Version="5.0.0" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\ManagementSystem.Membership\ManagementSystem.Membership.csproj" />
+  </ItemGroup>
+
 </Project>

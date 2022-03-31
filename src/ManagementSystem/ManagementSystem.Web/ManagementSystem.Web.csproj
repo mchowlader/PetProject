@@ -31,7 +31,8 @@
   <ItemGroup>
     <Folder Include="Areas\Identity\Pages\" />
     <Folder Include="Areas\Institute\Data\" />
-    <Folder Include="Logs\" />
+    <Folder Include="Areas\Institute\Data\Migrations\" />
+    <Folder Include="Areas\Institute\Views\Student\" />
   </ItemGroup>
 
 </Project>

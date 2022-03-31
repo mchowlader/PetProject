@@ -1,7 +1,11 @@
 ﻿using ManagementSystem.Academy.BusinessObjects;
 using ManagementSystem.Academy.Services;
 using ManagementSystem.Academy.UnifOfWorks;
+using ManagementSystem.Foundation.Exceptions;
 using ManagementSystem.Foundation.Services;
+using ManagementSystem.Membership.Entities;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,11 +18,16 @@ namespace ManagementSystem.Academy.Services
     {
         private readonly IAcademyUnitOfWork _unitOfWork;
         private readonly IPathService _pathService;
+        private UserManager<ApplicationUser> _userManager;
+        private static IHttpContextAccessor _httpContextAccessor;
 
-        public TeacherService(IAcademyUnitOfWork unitOfWork, IPathService pathService)
+        public TeacherService(IAcademyUnitOfWork unitOfWork, IPathService pathService, 
+            UserManager<ApplicationUser> userManager, IHttpContextAccessor httpContextAccessor)
         {
             _unitOfWork = unitOfWork;
             _pathService = pathService;
+            _userManager = userManager;
+            _httpContextAccessor = httpContextAccessor;
         }
 
         public async Task CreateTeacherAsync(Teacher teacher)
@@ -30,16 +39,43 @@ namespace ManagementSystem.Academy.Services
                     Address = teacher.Address,
                     MobileNo =teacher.MobileNo,
                     Photo =teacher.Photo,
-                    Gender = teacher.Gender
+                    Gender = teacher.Gender,
                 });
 
             await _unitOfWork.SaveAsync();
         }
 
-        public async Task DeleteTeacherAsync(int id)
+        public async Task DeleteTeacherAsync(Guid id)
         {
             await _unitOfWork.TeacherRepository.RemoveAsync(id);
             await _unitOfWork.SaveAsync();
+        }
+
+        public async Task<Teacher> GetTeacherByUserNameAsync()
+        {
+            var name = _httpContextAccessor.HttpContext.User.Identity.Name;
+            var user = await _userManager.FindByNameAsync(name);
+
+            if (user == null)
+                throw new InvalidParameterException("User must be provided to get a Teacher.");
+
+            var teacherEntity = (await _unitOfWork.TeacherRepository.GetAsync(x => 
+                x.Id == user.Id, null)).FirstOrDefault();
+
+            if (teacherEntity == null)
+                return null;
+
+            var teacher = new Teacher()
+            {
+                Id = teacherEntity.Id,
+                Name = teacherEntity.Name,
+                Address = teacherEntity.Address,
+                Gender = teacherEntity.Gender,
+                MobileNo =teacherEntity.MobileNo,
+                Photo = teacherEntity.Photo
+            };
+
+            return teacher;
         }
 
         public async Task<(IList<Teacher> records, int total, int totalDispaly)> GetTeacherDataAsyns(int pageIndex, int pageSize, 
@@ -76,7 +112,7 @@ namespace ManagementSystem.Academy.Services
             return (result, teacherList.total, teacherList.totalDisplay);
         }
 
-        public async Task<Teacher> LoadTeacherDataAsync(int id)
+        public async Task<Teacher> LoadTeacherDataAsync(Guid id)
         {
             var teacher = await _unitOfWork.TeacherRepository.GetByIdAsync(id);
             return new Teacher()

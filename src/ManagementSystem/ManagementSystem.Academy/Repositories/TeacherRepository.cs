@@ -9,7 +9,7 @@ using ManagementSystem.Academy.Entities;
 
 namespace ManagementSystem.Academy.Repositories
 {
-    public class TeacherRepository : Repository<Teacher, int, AcademyDbContext>, ITeacherRepository
+    public class TeacherRepository : Repository<Teacher, Guid, AcademyDbContext>, ITeacherRepository
     {
         public TeacherRepository(IAcademyDbContext context) 
             : base((AcademyDbContext)context)

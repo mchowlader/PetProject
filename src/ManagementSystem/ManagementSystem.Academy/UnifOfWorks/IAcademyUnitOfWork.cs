@@ -7,5 +7,6 @@ namespace ManagementSystem.Academy.UnifOfWorks
     {
         ITeacherRepository TeacherRepository { get; }
         IStudentRepository StudentRepository { get; }
+        IInstituteRepository InstituteRepository { get; }
     }
 }

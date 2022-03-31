@@ -1,5 +1,6 @@
 ﻿using Autofac;
 using ManagementSystem.Foundation.Utilities;
+using ManagementSystem.Web.Areas.Institute.Models.StudentModel;
 using ManagementSystem.Web.Areas.Institute.Models.TeacherModel;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
@@ -29,6 +30,7 @@ namespace ManagementSystem.Academy.Services
             var model = _scope.Resolve<CreateTeacherModel>();
             return View(model);
         }
+
         [HttpPost, ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(CreateTeacherModel model)
         {
@@ -65,7 +67,7 @@ namespace ManagementSystem.Academy.Services
             return Json(data);
         }
 
-        public async Task<IActionResult> Edit(int Id)
+        public async Task<IActionResult> Edit(Guid Id)
         {
             var model = _scope.Resolve<EditTeacherModel>();
 
@@ -105,7 +107,7 @@ namespace ManagementSystem.Academy.Services
         }
 
         [HttpPost, ValidateAntiForgeryToken]
-        public async Task<IActionResult> Delete(int Id)
+        public async Task<IActionResult> Delete(Guid Id)
         {
             var model = _scope.Resolve<DataTeacherModel>();
 
@@ -124,5 +126,15 @@ namespace ManagementSystem.Academy.Services
 
             return RedirectToAction(nameof(Data));
         }
+
+        public async Task<IActionResult> Invitation()
+        {
+            var model = _scope.Resolve<StudentInvitationModel>();
+            model.Resolve(_scope);
+            await model.LoadModelDataAsync();
+
+            return View(model);
+        }
+
     }
 }

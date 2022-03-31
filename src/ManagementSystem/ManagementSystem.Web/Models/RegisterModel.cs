@@ -8,8 +8,12 @@ namespace ManagementSystem.Web.Models
     public class RegisterModel
     {
         [Required]
+        [Display(Name = "Institute Name")]
+        public string Name { get; set; }
+
+        [Required]
         [EmailAddress]
-        [Display(Name = "Email")]
+        [Display(Name = "Admin Email")]
         public string Email { get; set; }
 
         [Required]

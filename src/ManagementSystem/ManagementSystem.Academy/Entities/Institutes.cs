@@ -8,17 +8,18 @@ using System.Threading.Tasks;
 
 namespace ManagementSystem.Academy.Entities
 {
-    public class Teacher : IEntity<Guid>
+    public class Institutes : IEntity<Guid>
     {
         public Guid Id { get; set; }
         public string Name { get; set; }
+        public Guid AdminUserId { get; set; }
+        public ApplicationUser AdminUser { get; set; }
+        public string Email { get; set; }
+        public string PhoneNumber { get; set; }
         public string Address { get; set; }
-        public int MobileNo{ get; set; }
-        public string Photo { get; set; }
-        public string Gender { get; set; }
-        public string Designation { get; set; }
+        public string LogoPath { get; set; }
+        public IList<Teacher> Teachers { get; set; }
         public IList<Student> Students { get; set; }
-
-
+        public DateTime CreateDate { get; set; }
     }
 }

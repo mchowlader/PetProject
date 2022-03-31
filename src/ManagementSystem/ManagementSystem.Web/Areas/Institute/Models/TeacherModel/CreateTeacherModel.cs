@@ -63,7 +63,6 @@ namespace ManagementSystem.Web.Areas.Institute.Models.TeacherModel
                 MobileNo = MobileNo,
                 Photo = Photo,
                 Gender = Gender
-                
             };
 
 

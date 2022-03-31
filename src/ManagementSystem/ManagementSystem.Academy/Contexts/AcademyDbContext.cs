@@ -1,4 +1,5 @@
 ﻿using ManagementSystem.Academy.Entities;
+using ManagementSystem.Membership.Entities;
 using Microsoft.EntityFrameworkCore;
 
 namespace ManagementSystem.Academy.Contexts
@@ -26,8 +27,19 @@ namespace ManagementSystem.Academy.Contexts
             base.OnConfiguring(dbContextOptionsBuilder);
         }
 
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<ApplicationUser>()
+                .ToTable("AspNetUsers", x => x.ExcludeFromMigrations())
+                .HasMany<Institutes>()
+                .WithOne(x => x.AdminUser);
+
+            base.OnModelCreating(modelBuilder);
+        }
+
         public DbSet<Teacher> Teachers { get; set; }
-        public DbSet<Student> Students { get; set; }
+        public DbSet<Institutes> Institutes { get; set; }
+        //public DbSet<Student> Students { get; set; }
         //public DbSet<Course> Courses { get; set; }
     }
 }

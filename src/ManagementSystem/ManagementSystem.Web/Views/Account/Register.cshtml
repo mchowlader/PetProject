@@ -1,7 +1,7 @@
 ﻿@model RegisterModel
 @{
     ViewData["Title"] = "Register";
-    Layout = "_AccountLayouty";
+    Layout = "_AccountLayout";
 }
 
 
@@ -9,6 +9,14 @@
 
 <form asp-action="Register" asp-controller="Account" asp-antiforgery="true" method="post">
     <div asp-validation-summary="All" class="text-danger"></div>
+    <div class="input-group mb-3">
+        <input type="text" asp-for="Name" class="form-control" placeholder="Institute name">
+        <div class="input-group-append">
+            <div class="input-group-text">
+                <span class="fas fa-envelope"></span>
+            </div>
+        </div>
+    </div>
     <div class="input-group mb-3">
         <input type="email" asp-for="Email" class="form-control" placeholder="Email">
         <div class="input-group-append">
