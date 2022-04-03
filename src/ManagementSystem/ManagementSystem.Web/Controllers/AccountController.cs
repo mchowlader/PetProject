@@ -60,8 +60,6 @@ namespace ManagementSystem.Web.Controllers
                 var user = new ApplicationUser { UserName = model.Email, Email = model.Email };
                 var result = await _userManager.CreateAsync(user, model.Password);
 
-                model.Resolve(_scope);
-
                 if (result.Succeeded)
                 {
                     _logger.LogInformation("User created a new account with password.");
@@ -77,12 +75,12 @@ namespace ManagementSystem.Web.Controllers
 
                     if (_userManager.Options.SignIn.RequireConfirmedAccount)
                     {
-                        return RedirectToAction("RegisterConfirmation", new { email = model.Email, returnUrl = model.ReturnUrl });
+                        return RedirectToAction("RegistrationConfirmation", new { email = model.Email, returnUrl = model.ReturnUrl });
                     }
                     else
                     {
                         await _signInManager.SignInAsync(user, isPersistent: false);
-                        return RedirectToAction(nameof(Index));
+                        return RedirectToAction(nameof(RegistrationConfirmation), model);
                     }
                 }
                 foreach (var error in result.Errors)
@@ -152,6 +150,7 @@ namespace ManagementSystem.Web.Controllers
         {
             await _signInManager.SignOutAsync();
             _logger.LogInformation("User logged out.");
+
             if (returnUrl != null)
             {
                 return LocalRedirect(returnUrl);
@@ -181,7 +180,8 @@ namespace ManagementSystem.Web.Controllers
                     _logger.LogError(ex, "Institute create failed");
                 }
             }
-            return View();
+
+            return View(model);
         }
 
         public async Task<IActionResult> ConfirmEmail(string username, string code)
