@@ -33,6 +33,7 @@
     <Folder Include="Areas\Institute\Data\" />
     <Folder Include="Areas\Institute\Data\Migrations\" />
     <Folder Include="Areas\Institute\Views\Student\" />
+    <Folder Include="Logs\" />
   </ItemGroup>
 
 </Project>

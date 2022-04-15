@@ -59,6 +59,8 @@ namespace ManagementSystem.Web.Controllers
             {
                 var user = new ApplicationUser { UserName = model.Email, Email = model.Email };
                 var result = await _userManager.CreateAsync(user, model.Password);
+                await _userManager.AddToRoleAsync(user, "InstituteAdmin");
+                await _userManager.AddClaimAsync(user, new Claim("InstituteAdmin", "true"));
 
                 if (result.Succeeded)
                 {

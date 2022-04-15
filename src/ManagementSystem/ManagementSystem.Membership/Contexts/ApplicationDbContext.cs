@@ -1,4 +1,5 @@
 ﻿using ManagementSystem.Membership.Entities;
+using ManagementSystem.Membership.Seeds;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -34,6 +35,14 @@ namespace ManagementSystem.Membership.Contexts
             }
 
             base.OnConfiguring(dbContextOptionsBuilder);
+        }
+
+        protected override void OnModelCreating(ModelBuilder builder)
+        {
+            builder.Entity<Role>()
+                .HasData(DataSeed.Roles);
+
+            base.OnModelCreating(builder);
         }
     }
 }

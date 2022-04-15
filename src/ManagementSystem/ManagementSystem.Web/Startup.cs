@@ -7,11 +7,14 @@ using ManagementSystem.Academy.Contexts;
 using ManagementSystem.Foundation;
 using ManagementSystem.Foundation.Utilities;
 using ManagementSystem.Membership;
+using ManagementSystem.Membership.BusinessObjects;
 using ManagementSystem.Membership.Contexts;
 using ManagementSystem.Membership.Entities;
+using ManagementSystem.Membership.Seeds;
 using ManagementSystem.Membership.Services;
 using ManagementSystem.Web.Data;
 using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -132,6 +135,24 @@ namespace ManagementSystem.Web
                 options.Cookie.IsEssential = true;
             });
 
+            services.AddAuthorization(options =>
+            {
+                options.AddPolicy("SuperAdmin", policy =>
+                {
+                    policy.RequireAuthenticatedUser();
+                    policy.Requirements.Add(new SuperAdminRequirment());
+                });
+
+                options.AddPolicy("InstituteAdmin", policy => 
+                {
+                    policy.RequireAuthenticatedUser();
+                    policy.Requirements.Add(new InstituteAdminRequirment());
+                });
+            });
+
+            services.AddSingleton<SuperAdminDataSeed>();
+            services.AddSingleton<IAuthorizationHandler, SuperAdminRequirementHandler>();
+            services.AddSingleton<IAuthorizationHandler, InstituteAdminRequirementHandler>();
             services.Configure<PathSettings>(Configuration.GetSection("Paths"));
             services.Configure<DefaultImageSettings>(Configuration.GetSection("DefaultImageSettings"));
             services.Configure<SmtpConfiguration>(Configuration.GetSection("Smtp"));
@@ -144,7 +165,7 @@ namespace ManagementSystem.Web
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, SuperAdminDataSeed superAdmin)
         {
             AutofacContainer = app.ApplicationServices.GetAutofacRoot();
 
@@ -178,6 +199,8 @@ namespace ManagementSystem.Web
                 endpoints.MapRazorPages();
 
             });
+
+            superAdmin.SeedUserAsync().Wait();
         }
     }
 }
